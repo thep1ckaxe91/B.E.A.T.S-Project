@@ -1,0 +1,9 @@
+{
+  "entities": [
+    { "type": "algae",   "x": 200, "y": 300 },
+    { "type": "algae",   "x": 230, "y": 310 },
+    { "type": "sardine", "x": 500, "y": 350 },
+    { "type": "crab",    "x": 650, "y": 500 },
+    { "type": "shark",   "x": 900, "y": 400 }
+  ]
+}
