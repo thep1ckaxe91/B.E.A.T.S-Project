@@ -1,6 +1,6 @@
 package com.soa;
 
-public class Sardine extends Consumer {
+final class Sardine extends Consumer {
     public Sardine(float x, float y, float energyLevel, float maxEnergy, float optimalDepthMin, float optimalDepthMax, float hungerThreshold, float visionRadius, float speed, float deltaTime, float attackRadius, float addEnergy) {
         super(x, y, energyLevel, maxEnergy, optimalDepthMin, optimalDepthMax, hungerThreshold, visionRadius, speed, deltaTime, attackRadius, addEnergy);
     }
