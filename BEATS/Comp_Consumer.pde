@@ -1,3 +1,8 @@
+enum State {
+    CRUISE,
+    HUNT
+}
+
 abstract class Consumer extends Organism {
     float hungerThreshold;
     float visionRadius;
@@ -17,41 +22,30 @@ abstract class Consumer extends Organism {
         this.addEnergy = addEnergy;
     }
 
-    public Organism searchFood(java.util.List<Organism> organisms) {
-        if (energyLevel > hungerThreshold) return null;
-        Organism closest = null;
-        float minDistance = Float.MAX_VALUE;
-        for (Organism o : organisms) {
-            if (o != this && !o.isDead() && canConsume(o)) {
-                float dx = o.x - x;
-                float dy = o.y - y;
-                float distance = (float)Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < minDistance && distance < visionRadius) {
-                    minDistance = distance;
-                    closest = o;
-                }
-            }
+    void updateBiologicalState() {
+            energyLevel -= 0.1;
+            if (energyLevel <= 0) dead = true;
         }
-        return closest;
+
+    public boolean checkDepthTolerance() {
+        return this.y >= optimalDepthMin && this.y <= optimalDepthMax;
+    }
+
+    // what this organism specifically eat
+    abstract boolean canConsume(Organism target);
+
+    public Organism searchFood(java.util.List<Organism> organisms) {
+        Organism target = null;
+        // Todo: Nếu energyLevel < hungerThresHold => tìm target nếu trong visionRadius => xác định mục tiêu
+    return taget;
     }
 
     public void chase(Organism target) {
-        float currentSpeed = (state == State.HUNT)
-                ? (speed * 1.5f)
-                : speed;
-        float dx = target.x - x;
-        float dy = target.y - y;
+        // Todo: nếu State là Hunt => tăng speed lên và cập nhật lại velocityX, và velocityY
+        }
 
-        float distance = (float)Math.sqrt(dx * dx + dy * dy);
-
-        if (distance == 0) return;
-
-        float dirX = dx / distance;
-        float dirY = dy / distance;
-
-        velocityX = dirX * currentSpeed;
-        velocityY = dirY * currentSpeed;
+    public void hunt(Organism target) {
+        // Todo: state chuyển sang HUNT và chase(target)
     }
 
     public void attack(Organism target) {
@@ -60,70 +54,19 @@ abstract class Consumer extends Organism {
             target.markForDeletion();
             state = State.CRUISE;
         }
-    }
 
-    public void hunt(Organism target) {
-        state = State.HUNT;
-        chase(target);
+        // Todo:
     }
 
     @Override
-    public void update(WorldContext context) {
-        java.util.List<Organism> organisms = context.organisms();
+    public void update() {
         if (isDead()) return;
         updateBiologicalState();
-        if (isDead()) return;
-
-        // Not hungry -> cruise only.
-        if (energyLevel > hungerThreshold) {
-            currentTarget = null;
-            state = State.CRUISE;
-            cruise();
-            super.update(context);
-            return;
-        }
-
-        // Keep current target when valid, otherwise acquire a new one.
-        if (currentTarget == null || currentTarget.isDead() || !canConsume(currentTarget)) {
-            currentTarget = searchFood(organisms);
-        }
-
-        if (currentTarget == null) {
-            state = State.CRUISE;
-            cruise();
-            super.update(context);
-            return;
-        }
-
-        float dx = currentTarget.x - x;
-        float dy = currentTarget.y - y;
-        float distance = (dx * dx + dy * dy);
-
-        if (distance > Math.pow(visionRadius, 2)) {
-            currentTarget = null;
-            state = State.CRUISE;
-            cruise();
-            super.update(context);
-            return;
-        }
-
-        if (distance <= Math.pow(attackRadius, 2)) {
-            attack(currentTarget);
-            if (currentTarget.isDead()) {
-                currentTarget = null;
-            }
-        } else {
-            hunt(currentTarget);
-        }
-
-        super.update(context);
+        // Todo: tổng hợp lại hành vi từ searchFood => hunt => attack
+        super.update();
     }
 
     public void cruise() {
-        // Gentle deterministic wandering while not hunting.
-        float angle = energyLevel * 0.7f + (x * 0.01f);
-        float cruiseSpeed = speed;
-        velocityX = (float)Math.cos(angle) * cruiseSpeed;
-        velocityY = (float)Math.sin(angle) * cruiseSpeed;
+        // Todo: trang thai khi khong san moi
     }
 }

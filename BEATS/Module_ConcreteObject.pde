@@ -101,3 +101,60 @@ final class Algae extends Producer {
         // TODO: Sử dụng EventBus để gửi yêu cầu spawn thực thể mới 
     }
 }
+
+final class Shark extends Consumer{
+    public Shark(float x, float y, float energyLevel, float maxEnergy, float optimalDepthMin, float optimalDepthMax, float hungerThreshold, float visionRadius, float speed, float attackRadius, float addEnergy) {
+        super(x, y, energyLevel, maxEnergy, optimalDepthMin, optimalDepthMax, hungerThreshold, visionRadius, speed, attackRadius, addEnergy);
+    }
+
+    @Override
+    public float energyDecayRate() {
+        return 0.3f;
+    }
+
+    @Override
+    public boolean canConsume(Organism other) {
+        return other instanceof Sardine || other instanceof Producer;
+    }
+
+    @Override
+    public void render() {
+        if (isDead()) return;
+        // TODO: Vẽ tảo bằng các hình khối cơ bản để đảm bảo hiệu suất 60 FPS
+
+    }
+
+final class Sardine extends Consumer {
+    public Sardine(float x, float y, float energyLevel, float maxEnergy, float optimalDepthMin, float optimalDepthMax, float optimalWidthMin, float optimalWidthMax, float width, float height, float hungerThreshold, float visionRadius, float speed, State state, float attackRadius, float addEnergy, Organism currentTarget) {
+        super(x, y, energyLevel, maxEnergy, optimalDepthMin, optimalDepthMax, optimalWidthMin, optimalWidthMax, width, height, hungerThreshold, visionRadius, speed, state, attackRadius, addEnergy, currentTarget);
+    }
+
+    @Override
+    boolean canConsume(Organism other) {
+        return other instanceof Producer;
+    }
+
+    public void schoolingBehaviour() {
+        // alignment
+        // cohesion
+        // separation
+    }
+
+    public Shark findNearbyShark(java.util.List<Organism> organisms) {
+        // Todo: tìm Shark gần và avoid.
+        return null;
+    }
+
+    public boolean avoidShark (Shark shark) {
+        // Todo: phát hiện shark => tăng tốc độ, cập nhật lại velocityX và velocityY
+        return true;
+    }
+
+    @Override
+    public void update() {
+        if (isDead()) return;
+
+        // Todo: Update lại logic.
+        super.update();
+    }
+}
