@@ -96,19 +96,19 @@ static class UIState {
         switch(type) {
         case ALGAE:
             original = ImageAssets.ALGAE;
-            targetW = 20; targetH = 20;
+            targetW = 40; targetH = 40;
             break;
         case CRAB:
             original = ImageAssets.CRAB;
-            targetW = 40; targetH = 30;
+            targetW = 80; targetH = 60;
             break;
         case SARDINE:
             original = ImageAssets.SARDINE;
-            targetW = 30; targetH = 15;
+            targetW = 60; targetH = 30;
             break;
         case SHARK:
             original = ImageAssets.SHARK;
-            targetW = 50; targetH = 25;
+            targetW = 100; targetH = 50;
             break;
         default:
             return null;
