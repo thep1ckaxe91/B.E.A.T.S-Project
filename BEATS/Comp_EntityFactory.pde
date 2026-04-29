@@ -43,13 +43,13 @@ class EntityFactory {
         // Species-specific setup
         switch(species) {
             case ALGAE:
-                coordinator.addComponent(entity, new CTransform(x, y, 8, 8));
+                coordinator.addComponent(entity, new CTransform(x, y, 16, 16));
                 coordinator.addComponent(entity, new CEnergy(currentEnergy, maxEnergy, metabolism, reproduceThreshold));
                 coordinator.addComponent(entity, new CEcology(minDepth, maxDepth));
                 coordinator.addComponent(entity, new CProducer(cfgFloat("algae", "energy", "photosynthesisRate")));
                 break;
             case SARDINE:
-                coordinator.addComponent(entity, new CTransform(x, y, 12, 6));
+                coordinator.addComponent(entity, new CTransform(x, y, 24, 12));
                 coordinator.addComponent(entity, new CVelocity(random(-1,1), random(-1,1)));
                 coordinator.addComponent(entity, new CEnergy(currentEnergy, maxEnergy, metabolism, reproduceThreshold));
                 coordinator.addComponent(entity, new CEcology(minDepth, maxDepth));
@@ -59,7 +59,7 @@ class EntityFactory {
                 coordinator.addComponent(entity, new CMeat());
                 break;
             case SHARK:
-                coordinator.addComponent(entity, new CTransform(x, y, 35, 15));
+                coordinator.addComponent(entity, new CTransform(x, y, 70, 30));
                 coordinator.addComponent(entity, new CVelocity(random(-1,1), random(-1,1)));
                 coordinator.addComponent(entity, new CEnergy(currentEnergy, maxEnergy, metabolism, reproduceThreshold));
                 coordinator.addComponent(entity, new CEcology(minDepth, maxDepth));
@@ -69,7 +69,7 @@ class EntityFactory {
                 coordinator.addComponent(entity, new CMeat());
                 break;
             case CRAB:
-                coordinator.addComponent(entity, new CTransform(x, y, 18, 12));
+                coordinator.addComponent(entity, new CTransform(x, y, 36, 24));
                 coordinator.addComponent(entity, new CVelocity(random(-1,1), random(-1,1)));
                 coordinator.addComponent(entity, new CEnergy(currentEnergy, maxEnergy, metabolism, reproduceThreshold));
                 coordinator.addComponent(entity, new CEcology(minDepth, maxDepth));
